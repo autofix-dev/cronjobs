@@ -7,7 +7,6 @@ jobs:
     steps:
       - run:
           command: |
-            set -e
             git config --global user.name "$GIT_USER_NAME"
             git config --global user.email "$GIT_USER_EMAIL"
             git config --global hub.protocol "https"
@@ -15,11 +14,11 @@ jobs:
             printf "github.com:\n- user: $GITHUB_LOGIN\n  oauth_token: $GITHUB_TOKEN\n  protocol: https\n" > ~/.config/hub
             printf "machine github.com\nlogin $GITHUB_LOGIN\npassword $GITHUB_TOKEN\n" > ~/.netrc
             brew install hub
+            npm install -g autofix
             git clone https://github.com/gitpod-io/workspace-images
             cd workspace-images
-            npm install -g autofix
             hub fork
-            autofix --branches --push=$GITHUB_LOGIN
+            autofix --branches --push=$GITHUB_LOGIN --pull-request
 
 workflows:
   version: 2
