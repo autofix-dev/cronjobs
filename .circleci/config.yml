@@ -23,7 +23,7 @@ jobs:
 
 workflows:
   version: 2
-  weekly:
+  nightly:
     triggers:
       - schedule:
           cron: "5 3 * * *"
