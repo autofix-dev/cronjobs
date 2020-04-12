@@ -19,7 +19,7 @@ jobs:
             git clone https://github.com/gitpod-io/workspace-images
             cd workspace-images
             hub fork
-            autofix --branches --push=$GITHUB_LOGIN --pull-request
+            autofix --branches --branch-prefix=$CIRCLE_BUILD_NUM --push=$GITHUB_LOGIN --pull-request
 
 workflows:
   version: 2
