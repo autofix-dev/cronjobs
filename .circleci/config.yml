@@ -20,6 +20,12 @@ jobs:
             cd workspace-images
             hub fork
             autofix --branches --branch-suffix=$CIRCLE_BUILD_NUM --push=$GITHUB_LOGIN --pull-request
+            cd ..
+            git clone https://github.com/eclipse-theia/theia
+            cd theia
+            hub fork
+            autofix --branches --branch-suffix=$CIRCLE_BUILD_NUM --push=$GITHUB_LOGIN
+            cd ..
 
 workflows:
   version: 2
