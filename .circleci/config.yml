@@ -24,7 +24,7 @@ jobs:
             git clone https://github.com/eclipse-theia/theia
             cd theia
             hub fork
-            autofix --branches --branch-suffix=$CIRCLE_BUILD_NUM --push=$GITHUB_LOGIN
+            autofix --branches --branch-suffix=$CIRCLE_BUILD_NUM --signoff --push=$GITHUB_LOGIN
             cd ..
 
 workflows:
