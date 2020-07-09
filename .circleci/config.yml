@@ -31,7 +31,7 @@ jobs:
             hub fork
             autofix --branches --branch-suffix=$CIRCLE_BUILD_NUM --push=$GITHUB_LOGIN
             cd ..
-          no_output_timeout: 60m
+          no_output_timeout: 120m
 
 workflows:
   version: 2
