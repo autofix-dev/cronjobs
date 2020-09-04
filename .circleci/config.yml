@@ -31,6 +31,11 @@ jobs:
             hub fork
             autofix --branches --branch-suffix=$CIRCLE_BUILD_NUM --signoff --push=$GITHUB_LOGIN
             cd ..
+            git clone --recurse-submodules https://github.com/gitpod-io/website
+            cd website
+            hub fork
+            autofix --branches --branch-suffix=$CIRCLE_BUILD_NUM --push=$GITHUB_LOGIN
+            cd ..
             git clone --recurse-submodules https://github.com/mozilla/gecko-dev
             cd gecko-dev
             hub fork
