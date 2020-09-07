@@ -34,7 +34,7 @@ jobs:
             git clone --recurse-submodules https://github.com/gitpod-io/website
             cd website
             hub fork
-            autofix --branches --branch-suffix=$CIRCLE_BUILD_NUM --push=$GITHUB_LOGIN
+            autofix --branches --branch-suffix=$CIRCLE_BUILD_NUM --push=$GITHUB_LOGIN --pull-request
             cd ..
             git clone --recurse-submodules https://github.com/mozilla/gecko-dev
             cd gecko-dev
