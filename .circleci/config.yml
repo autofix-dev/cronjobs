@@ -1,7 +1,7 @@
 version: 2.0
 
 jobs:
-  autofix-workspace-images:
+  autofix-repositories:
     docker:
       - image: gitpod/workspace-full:latest
     steps:
@@ -18,11 +18,6 @@ jobs:
             npm install -g autofix
             git clone --recurse-submodules https://github.com/gitpod-io/workspace-images
             cd workspace-images
-            hub fork
-            autofix --branches --branch-suffix=$CIRCLE_BUILD_NUM --push=$GITHUB_LOGIN --pull-request
-            cd ..
-            git clone --recurse-submodules https://github.com/jankeromnes/submodule-poc
-            cd submodule-poc
             hub fork
             autofix --branches --branch-suffix=$CIRCLE_BUILD_NUM --push=$GITHUB_LOGIN --pull-request
             cd ..
@@ -45,7 +40,7 @@ jobs:
 
 workflows:
   version: 2
-  nightly:
+  biweekly:
     triggers:
       - schedule:
           cron: "3 3 * * 0,3"
@@ -54,4 +49,4 @@ workflows:
               only:
                 - master
     jobs:
-      - autofix-workspace-images
+      - autofix-repositories
