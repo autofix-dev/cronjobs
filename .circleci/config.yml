@@ -21,6 +21,11 @@ jobs:
             hub fork
             autofix --branches --branch-suffix=$CIRCLE_BUILD_NUM --push=$GITHUB_LOGIN --pull-request
             cd ..
+            git clone --recurse-submodules https://github.com/gitpod-io/definitely-gp
+            cd definitely-gp
+            hub fork
+            autofix --branches --branch-suffix=$CIRCLE_BUILD_NUM --push=$GITHUB_LOGIN --pull-request
+            cd ..
             git clone --recurse-submodules https://github.com/eclipse-theia/theia
             cd theia
             hub fork
