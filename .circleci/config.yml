@@ -36,6 +36,11 @@ jobs:
             hub fork
             autofix --branches --branch-suffix=$CIRCLE_BUILD_NUM --push=$GITHUB_LOGIN --pull-request
             cd ..
+            git clone --recurse-submodules https://github.com/jankeromnes/terraforming-mars-bot
+            cd terraforming-mars-bot
+            hub fork
+            autofix --branches --branch-suffix=$CIRCLE_BUILD_NUM --push=$GITHUB_LOGIN --pull-request
+            cd ..
             git clone --recurse-submodules https://github.com/mozilla/gecko-dev
             cd gecko-dev
             hub fork
