@@ -3,7 +3,7 @@ version: 2.0
 jobs:
   autofix-repositories:
     docker:
-      - image: gitpod/workspace-full:latest
+      - image: gitpod/workspace-full:branch-jx-update-brew-and-cmake
     steps:
       - run:
           command: |
