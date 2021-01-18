@@ -1,9 +1,10 @@
 version: 2.0
 
 jobs:
-  autofix-repositories:
+
+  autofix-biweekly:
     docker:
-      - image: gitpod/workspace-full:branch-jx-update-brew-and-cmake
+      - image: gitpod/workspace-full
     steps:
       - run:
           command: |
@@ -26,27 +27,43 @@ jobs:
             hub fork
             autofix --branches --branch-suffix=$CIRCLE_BUILD_NUM --push=$GITHUB_LOGIN --pull-request
             cd ..
-            git clone --recurse-submodules https://github.com/eclipse-theia/theia
-            cd theia
+            git clone --recurse-submodules https://github.com/jankeromnes/terraforming-mars-bot
+            cd terraforming-mars-bot
             hub fork
-            autofix --branches --branch-suffix=$CIRCLE_BUILD_NUM --signoff --push=$GITHUB_LOGIN
+            autofix --branches --branch-suffix=$CIRCLE_BUILD_NUM --push=$GITHUB_LOGIN --pull-request
             cd ..
+          no_output_timeout: 120m
+
+  autofix-monthly:
+    docker:
+      - image: gitpod/workspace-full
+    steps:
+      - run:
+          command: |
+            git config --global user.name "$GIT_USER_NAME"
+            git config --global user.email "$GIT_USER_EMAIL"
+            git config --global hub.protocol "https"
+            mkdir -p ~/.config
+            printf "github.com:\n- user: $GITHUB_LOGIN\n  oauth_token: $GITHUB_TOKEN\n  protocol: https\n" > ~/.config/hub
+            printf "machine github.com\nlogin $GITHUB_LOGIN\npassword $GITHUB_TOKEN\n" > ~/.netrc
+            brew install hub
+            pip install codespell
+            npm install -g autofix
             git clone --recurse-submodules https://github.com/gitpod-io/website
             cd website
             hub fork
             autofix --branches --branch-suffix=$CIRCLE_BUILD_NUM --push=$GITHUB_LOGIN --pull-request
             cd ..
-            git clone --recurse-submodules https://github.com/jankeromnes/terraforming-mars-bot
-            cd terraforming-mars-bot
+            git clone --recurse-submodules https://github.com/eclipse-theia/theia
+            cd theia
             hub fork
-            autofix --branches --branch-suffix=$CIRCLE_BUILD_NUM --push=$GITHUB_LOGIN --pull-request
+            autofix --branches --branch-suffix=$CIRCLE_BUILD_NUM --signoff --push=$GITHUB_LOGIN
             cd ..
             git clone --recurse-submodules https://github.com/mozilla/gecko-dev
             cd gecko-dev
             hub fork
             autofix --branches --branch-suffix=$CIRCLE_BUILD_NUM --push=$GITHUB_LOGIN
             cd ..
-          no_output_timeout: 120m
 
 workflows:
   version: 2
@@ -59,4 +76,14 @@ workflows:
               only:
                 - master
     jobs:
-      - autofix-repositories
+      - autofix-biweekly
+  monthly:
+    triggers:
+      - schedule:
+          cron: "3 3 3 * *"
+          filters:
+            branches:
+              only:
+                - master
+    jobs:
+      - autofix-monthly
