@@ -27,11 +27,6 @@ jobs:
             hub fork
             autofix --branches --branch-suffix=$CIRCLE_BUILD_NUM --push=$GITHUB_LOGIN --pull-request
             cd ..
-            git clone --recurse-submodules https://github.com/jankeromnes/terraforming-mars-bot
-            cd terraforming-mars-bot
-            hub fork
-            autofix --branches --branch-suffix=$CIRCLE_BUILD_NUM --push=$GITHUB_LOGIN --pull-request
-            cd ..
           no_output_timeout: 120m
 
   autofix-monthly:
@@ -51,6 +46,11 @@ jobs:
             npm install -g autofix
             git clone --recurse-submodules https://github.com/gitpod-io/website
             cd website
+            hub fork
+            autofix --branches --branch-suffix=$CIRCLE_BUILD_NUM --push=$GITHUB_LOGIN --pull-request
+            cd ..
+            git clone --recurse-submodules https://github.com/jankeromnes/terraforming-mars-bot
+            cd terraforming-mars-bot
             hub fork
             autofix --branches --branch-suffix=$CIRCLE_BUILD_NUM --push=$GITHUB_LOGIN --pull-request
             cd ..
