@@ -22,6 +22,11 @@ jobs:
             hub fork
             autofix --branches --branch-suffix=$CIRCLE_BUILD_NUM --push=$GITHUB_LOGIN --pull-request
             cd ..
+            git clone --recurse-submodules https://github.com/gitpod-io/gitpod
+            cd gitpod
+            hub fork
+            autofix --branches --branch-suffix=$CIRCLE_BUILD_NUM --push=$GITHUB_LOGIN --pull-request
+            cd ..
             git clone --recurse-submodules https://github.com/gitpod-io/definitely-gp
             cd definitely-gp
             hub fork
