@@ -27,6 +27,16 @@ jobs:
             hub fork
             autofix --branches --branch-suffix=$CIRCLE_BUILD_NUM --push=$GITHUB_LOGIN --pull-request
             cd ..
+            git clone --recurse-submodules https://github.com/autofix-dev/autofix
+            cd autofix
+            hub fork
+            autofix --branches --branch-suffix=$CIRCLE_BUILD_NUM --push=$GITHUB_LOGIN --pull-request
+            cd ..
+            git clone --recurse-submodules https://github.com/autofix-dev/cronjobs
+            cd cronjobs
+            hub fork
+            autofix --branches --branch-suffix=$CIRCLE_BUILD_NUM --push=$GITHUB_LOGIN --pull-request
+            cd ..
           no_output_timeout: 120m
 
   autofix-monthly:
