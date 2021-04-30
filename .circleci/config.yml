@@ -64,6 +64,11 @@ jobs:
             hub fork
             autofix --branches --branch-suffix=$CIRCLE_BUILD_NUM --push=$GITHUB_LOGIN --pull-request
             cd ..
+            git clone --recurse-submodules https://github.com/open-vsx/publish-extensions
+            cd publish-extensions
+            hub fork
+            autofix --branches --branch-suffix=$CIRCLE_BUILD_NUM --push=$GITHUB_LOGIN --pull-request
+            cd ..
             git clone --recurse-submodules https://github.com/jankeromnes/terraforming-mars-bot
             cd terraforming-mars-bot
             hub fork
