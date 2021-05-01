@@ -91,7 +91,7 @@ workflows:
   monthly:
     triggers:
       - schedule:
-          cron: "3 3 9 * *"
+          cron: "3 3 3 * *"
           filters:
             branches:
               only:
